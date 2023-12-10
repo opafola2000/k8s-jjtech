@@ -3,7 +3,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  myapp
+  name: myapp
   namespace: application
   labels:
     app: myapp
@@ -29,15 +29,15 @@ spec:
         type: frontend
     spec:
       # initContainers:
-        # Init containers are exactly like regular containers, except:
-          # - Init containers always run to completion.
-          # - Each init container must complete successfully before the next one starts.
+      # Init containers are exactly like regular containers, except:
+      # - Init containers always run to completion.
+      # - Each init container must complete successfully before the next one starts.
       containers:
-      - name:  myapp
+      - name: myapp
         image: nginx:perl
         ports:
-          - containerPort: 80
-            name:  http
+        - containerPort: 80
+          name: http
         resources:
           requests:
             cpu: 500m
@@ -45,7 +45,7 @@ spec:
           limits:
             cpu: 1000m
             memory: 500Mi
-        
+
 
 # --- 
 # apiVersion: v1
@@ -70,4 +70,4 @@ spec:
 #     ports:
 #     - containerPort:  80
 #       name:  http
-        
+
