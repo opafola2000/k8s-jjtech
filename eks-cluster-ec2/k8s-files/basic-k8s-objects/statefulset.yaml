@@ -52,15 +52,14 @@ spec:
       containers:
       - name: mysql
         image: mysql:latest
-        cmd:
         env:
-          - name: MYSQL_ROOT_PASSWORD
-            value: "your-root-password"
-          - name: MYSQL_DATABASE
-            value: "tower"
-          - name: MYSQL_USER
-            value: "tower"
-          - name: MYSQL_PASSWORD
-            value: "your-password"
+        - name: MYSQL_ROOT_PASSWORD
+          value: "your-root-password"
+        - name: MYSQL_DATABASE
+          value: "tower"
+        - name: MYSQL_USER
+          value: "tower"
+        - name: MYSQL_PASSWORD
+          value: "your-password"
         ports:
         - containerPort: 3306

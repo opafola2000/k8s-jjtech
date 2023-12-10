@@ -4,7 +4,7 @@ metadata:
   name: jjtech-pod
   namespace: application
   labels:
-    app: my-app
+    app: myapp
     run: nginx
 spec:
   containers:
@@ -18,5 +18,5 @@ spec:
         cpu: 100m
         memory: 200Mi
     ports:
-    - containerPort:  80
-      name:  http
+    - containerPort: 80
+      name: http
