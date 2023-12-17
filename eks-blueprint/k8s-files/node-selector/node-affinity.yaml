@@ -17,16 +17,17 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: my-pod
+  namespace: application
 spec:
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              - key: node #<label-key>
+              - key: dev #<label-key>
                 operator: In
                 values:
-                  - host  #<label-value>
+                  - tom  #<label-value>
   containers:
     - name: nginx
       image: nginx
