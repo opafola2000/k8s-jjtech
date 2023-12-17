@@ -15,7 +15,7 @@ module "eks_blueprints_platform_teams" {
   # Define who can impersonate the team-platform Role
   # The module will create a new IAM Role and we define on line 18 which other entities (user or roles) 
   # will be able to impersonate this role and be able to gain Admin access on the cluster.
-  users             = [data.aws_caller_identity.current.arn, "arn:aws:iam::750468095743:user/test-user", "arn:aws:iam::389029577690:user/test-user"]
+  users             = [data.aws_caller_identity.current.arn]
   cluster_arn       = module.eks_cluster.cluster_arn
   oidc_provider_arn = module.eks_cluster.oidc_provider_arn
 

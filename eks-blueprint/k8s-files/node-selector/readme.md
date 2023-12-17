@@ -59,3 +59,58 @@ Node draining in Kubernetes is the process of gracefully evicting all the pods f
    - The `kubectl uncordon` command marks the node as schedulable again, allowing new pods to be scheduled onto it.
 
 Node draining is a critical operation for cluster maintenance, such as applying updates, replacing hardware, or addressing other issues. It ensures that the impact on running applications is minimized by gracefully handling pod evictions and rescheduling. It's important to note that node draining is a manual operation, and administrators typically initiate it when needed. Additionally, tools like Kubernetes Controllers for node maintenance and upgrades (e.g., `kured` for automatic node restarts during updates) can help automate some aspects of this process.
+
+
+# Taints and Tolerations
+
+Taints and tolerations work together to ensure that pods are not scheduled onto inappropriate nodes. One or more taints are applied to a node; this marks that the node should not accept any pods that do not tolerate the taints.
+
+## You add a taint to a node using kubectl taint. For example,
+```bash
+kubectl taint nodes node1 key1=value1:NoSchedule
+```
+
+### places a taint on node node1. The taint has key key1, value value1, and taint effect NoSchedule. This means that no pod will be able to schedule onto node1 unless it has a matching toleration
+
+## To remove the taint added by the command above, you can run:
+```bash
+kubectl taint nodes node1 key1=value1:NoSchedule-
+```
+
+## You specify a toleration for a pod in the PodSpec. Both of the following tolerations "match" the taint created by the kubectl taint line above, and thus a pod with either toleration would be able to schedule onto node1:
+
+```bash
+tolerations:
+- key: "key1"
+  operator: "Equal"
+  value: "value1"
+  effect: "NoSchedule"
+```
+
+```bash
+tolerations:
+- key: "key1"
+  operator: "Exists"
+  effect: "NoSchedule"
+```
+
+
+## Here's an example of a pod that uses tolerations:
+
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  tolerations:
+  - key: "example-key"
+    operator: "Exists"
+    effect: "NoSchedule"
+```

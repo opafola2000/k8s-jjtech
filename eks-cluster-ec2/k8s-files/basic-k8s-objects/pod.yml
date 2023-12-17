@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: jjtech-pod
-  namespace: application
+  namespace: default
   labels:
     app: myapp
     run: nginx
@@ -18,5 +18,5 @@ spec:
         cpu: 100m
         memory: 200Mi
     ports:
-    - containerPort: 80
-      name: http
+    - containerPort:  80
+      name:  http

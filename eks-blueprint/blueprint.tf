@@ -42,15 +42,15 @@ module "eks_cluster" {
     }
   }
 
-  manage_aws_auth_configmap = true
+  # manage_aws_auth_configmap = true
 
-  aws_auth_roles = [
-    {
-      rolearn  = "arn:aws:iam::389029577690:role/team-platform-20231208173344295400000020"
-      username = "cluster-admin"
-      groups   = ["system:masters"]
-    },
-  ]
+  # aws_auth_roles = [
+  #   {
+  #     rolearn  = "arn:aws:iam::389029577690:role/team-platform-20231208173344295400000020"
+  #     username = "cluster-admin"
+  #     groups   = ["system:masters"]
+  #   },
+  # ]
 
   tags = {
     Environment = "sandbox"
