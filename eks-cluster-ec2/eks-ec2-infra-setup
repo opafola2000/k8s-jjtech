@@ -44,24 +44,29 @@ pipeline {
         
         stage('Terraform plan') {
             steps {
-                echo 'Terraform plan for the dry run...'
-                sh 'sudo terraform plan'
-               
+                script {
+                    dir('/var/lib/jenkins/workspace/eks-cluster-ec2') {
+                        echo 'Terraform plan for the dry run...'
+                        sh 'sudo terraform plan'
+                    }
+                }                 
             }
         } 
                 
         
         stage('Checkov scan') {
-            steps {
-                
-                sh """                
-                sudo pip3 install --upgrade pip
-                sudo pip3 install checkov
-                #checkov -d .
-                #checkov -d . --skip-check CKV_AWS_23,CKV_AWS_24,CKV_AWS_126,CKV_AWS_135,CKV_AWS_8,CKV_AWS_23,CKV_AWS_24
-                checkov -d . --skip-check CKV_AWS*
-                """
-               
+            steps {      
+                script {
+                    dir('/var/lib/jenkins/workspace/eks-cluster-ec2') {
+                        sh """                
+                        sudo pip3 install --upgrade pip
+                        sudo pip3 install checkov
+                        #checkov -d .
+                        #checkov -d . --skip-check CKV_AWS_23,CKV_AWS_24,CKV_AWS_126,CKV_AWS_135,CKV_AWS_8,CKV_AWS_23,CKV_AWS_24
+                        checkov -d . --skip-check CKV_AWS*
+                        """
+                    }
+                }                                          
             }
         }               
         
@@ -76,9 +81,12 @@ pipeline {
         
          stage('Terraform apply') {
             steps {
-                echo 'Terraform apply...'                           
-                sh 'sudo terraform apply --auto-approve'
-               
+                script {
+                    dir('/var/lib/jenkins/workspace/eks-cluster-ec2') {
+                        echo 'Terraform apply...'
+                        sh 'sudo terraform apply --auto-approve'
+                    }
+                }                                                           
             }
         }
         
@@ -98,7 +106,5 @@ pipeline {
          //   slackSend channel: '#team-devops', color: COLOR_MAP[currentBuild.currentResult], message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
     }
-    
-    
-    
+                
 }
