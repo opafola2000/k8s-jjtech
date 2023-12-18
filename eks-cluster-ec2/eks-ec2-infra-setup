@@ -21,6 +21,7 @@ pipeline {
         stage('Terraform init') {
             steps {
                 echo 'Initializing terraform project...'
+                sh 'sudo pwd'
                 sh 'sudo terraform init'
                
             }
