@@ -21,10 +21,13 @@ pipeline {
         
         stage('Terraform init') {
             steps {
-                dir('/var/lib/jenkins/workspace/default')
-                echo 'Initializing terraform project...'
-                sh 'sudo pwd'
-                sh 'sudo terraform init'
+                script {
+                    dir('/var/lib/jenkins/workspace/eks-cluster-ec2') {
+                        sh 'pwd'
+                        sh 'ls -ltr'
+                        sh 'sudo terraform init'
+                    }
+                }                
                
             }
         }
