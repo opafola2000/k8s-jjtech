@@ -45,7 +45,7 @@ pipeline {
         stage('Terraform plan') {
             steps {
                 echo 'Terraform plan for the dry run...'
-                sh 'sudo terraform plan -f eks-cluster-ec2/eks.tf'
+                sh 'sudo terraform plan'
                
             }
         } 
