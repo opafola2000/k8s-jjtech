@@ -22,7 +22,7 @@ pipeline {
         stage('Terraform init') {
             steps {
                 script {
-                    dir('/var/lib/jenkins/workspace/eks-blueprint/eks-blueprint') {
+                    dir('/var/lib/jenkins/workspace/eks-blueprint-setup/eks-blueprint') {
                         sh 'pwd'
                         sh 'ls -ltr'
                         sh 'sudo terraform init'
@@ -45,7 +45,7 @@ pipeline {
         stage('Terraform plan') {
             steps {
                 script {
-                    dir('/var/lib/jenkins/workspace/eks-blueprint/eks-blueprint') {
+                    dir('/var/lib/jenkins/workspace/eks-blueprint-setup/eks-blueprint') {
                         echo 'Terraform plan for the dry run...'
                         sh 'sudo terraform plan'
                     }
@@ -57,7 +57,7 @@ pipeline {
         stage('Checkov scan') {
             steps {      
                 script {
-                    dir('/var/lib/jenkins/workspace/eks-blueprint/eks-blueprint') {
+                    dir('/var/lib/jenkins/workspace/eks-blueprint-setup/eks-blueprint') {
                         sh """                
                         sudo pip3 install --upgrade pip
                         sudo pip3 install checkov
@@ -82,7 +82,7 @@ pipeline {
          stage('Terraform apply') {
             steps {
                 script {
-                    dir('/var/lib/jenkins/workspace/eks-blueprint/eks-blueprint') {
+                    dir('/var/lib/jenkins/workspace/eks-blueprint-setup/eks-blueprint') {
                         echo 'Terraform apply...'
                         sh 'sudo terraform apply --auto-approve'
                     }
