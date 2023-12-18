@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Git checkout') {
             steps {
                 echo 'Cloning project codebase...'
@@ -11,7 +12,7 @@ pipeline {
         }
         
          stage('Verify Terraform Version') {
-            steps {
+            steps {                
                 echo 'verifying the terraform version...'
                 sh 'terraform --version'
                
@@ -20,6 +21,7 @@ pipeline {
         
         stage('Terraform init') {
             steps {
+                dir('/var/lib/jenkins/workspace/default')
                 echo 'Initializing terraform project...'
                 sh 'sudo pwd'
                 sh 'sudo terraform init'
