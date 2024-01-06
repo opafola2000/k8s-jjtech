@@ -78,6 +78,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
+  - host: hanzoutsource.com
   - http: 
       paths:
         - path: /hello-v1
