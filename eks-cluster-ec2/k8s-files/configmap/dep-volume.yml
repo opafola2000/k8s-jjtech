@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
   - name: myapp
-    image: deekshithsn/k8s-deployment-strategies 
+    image: nginx
     ports:
     - containerPort:  8080
       name:  http
